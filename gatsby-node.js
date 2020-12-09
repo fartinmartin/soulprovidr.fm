@@ -4,8 +4,8 @@ const categories = require('./data/entities/categories.json');
 
 const getPostSlugPrefix = (node) => {
   switch (node.frontmatter.category) {
-    case 'mixtape':
-      return 'mixtapes/';
+    case 'newsletter':
+      return 'newsletters/';
     default:
       return '';
   }
@@ -18,8 +18,8 @@ const getPostSlug = (node) =>
 
 const getPostTemplate = (categoryId) => {
   switch (categoryId) {
-    case 'mixtape':
-      return path.resolve('./src/views/templates/Mixtape.js');
+    case 'newsletter':
+      return path.resolve('./src/views/templates/Newsletter.js');
     default:
       return null;
   }

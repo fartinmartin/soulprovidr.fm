@@ -19,7 +19,8 @@ function Waveform({
   numSamples,
   onSeek,
   reflectionHeight,
-  waveformUrl
+  waveformUrl,
+  ...props
 }) {
   const waveformRef = useRef(null);
 

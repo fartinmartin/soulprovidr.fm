@@ -46,7 +46,7 @@ function Home({ data }) {
       <Page.Meta>
         <CTABanner />
         <Heading as="h3" pb={3}>
-          LATEST CONTENT
+          LATEST NEWSLETTERS
         </Heading>
         <Masonry
           breakpointCols={{

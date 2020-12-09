@@ -19,8 +19,8 @@ const links = [
     )
   },
   {
-    to: '/mixtapes',
-    children: 'Mixtapes',
+    to: '/newsletters',
+    children: 'Newsletter',
     partiallyActive: true
   },
   {

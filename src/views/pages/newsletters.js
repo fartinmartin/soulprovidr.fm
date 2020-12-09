@@ -21,12 +21,12 @@ const globalStyles = css`
   }
 `;
 
-function Mixtapes({ data }) {
+function Newsletters({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page title="Mixtapes">
+    <Page title="Newsletters">
       <Global styles={globalStyles} />
-      <Page.Title>Mixtapes</Page.Title>
+      <Page.Title>Newsletters</Page.Title>
       <Page.Content>
         <CTABanner />
         <Box>
@@ -52,12 +52,12 @@ function Mixtapes({ data }) {
   );
 }
 
-export default Mixtapes;
+export default Newsletters;
 
 export const pageQuery = graphql`
-  query MixtapesQuery {
+  query NewslettersQuery {
     allMarkdownRemark(
-      filter: { frontmatter: { category: { id: { eq: "mixtape" } } } }
+      filter: { frontmatter: { category: { id: { eq: "newsletter" } } } }
       sort: { fields: frontmatter___date, order: DESC }
       limit: 6
     ) {

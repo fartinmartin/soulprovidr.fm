@@ -12,7 +12,15 @@ import {
 } from 'modules/player';
 import { Waveform, useTrack } from 'modules/soundcloud';
 import { MarqueeContainer as Marquee } from '@/packages/marquee';
-import { Box, Breakpoints, Button, Spinner, Text, usePageWidth } from 'theme';
+import {
+  Box,
+  Breakpoints,
+  Button,
+  Heading,
+  Spinner,
+  Text,
+  usePageWidth
+} from 'theme';
 import { CoverImage } from '../components/CoverImage';
 import { Tracklist } from '../components/Tracklist';
 import { Page } from '../layout';
@@ -21,17 +29,19 @@ import { PlayerIcon } from '../player';
 const MixtapeContainer = styled('div')(
   css({
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: ['column', 'row']
+    flexDirection: ['column']
   })
 );
 
 const MixtapeMeta = styled('div')(
   css({
-    alignSelf: [null, 'flex-start'],
-    mr: [0, 4],
+    // alignSelf: [null, 'flex-start'],
+    // mr: [0, 5],
     position: ['relative'],
-    flexGrow: 1
+    flexGrow: 1,
+    width: '60%'
   })
 );
 
@@ -49,17 +59,28 @@ const MixtapeTitle = styled(Page.Title)(
   css({
     fontSize: [5, 6],
     lineHeight: 1.25,
-    pb: 1,
-    pt: [3, 0],
     textTransform: 'none'
   })
 );
 
+const StyledMarquee = styled(Marquee)`
+  ${css({ pt: 4, pb: 2 })}
+`;
+
 const MixtapeText = styled(Text)(
   css({
     mb: 3,
-    pb: 2
-  })
+    pb: 2,
+    pt: 2,
+    'a, a:active, a:visited': {
+      color: 'accent'
+    }
+  }),
+  {
+    p: {
+      textAlign: 'justify'
+    }
+  }
 );
 
 const WaveformControls = styled('div')(
@@ -67,7 +88,8 @@ const WaveformControls = styled('div')(
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    pb: 4
+    paddingBottom: '26px',
+    borderBottom: 'container'
   })
 );
 
@@ -89,11 +111,12 @@ const StyledPlayerIcon = styled(PlayerIcon)(
   })
 );
 
-const MixtapeTemplate = ({ data, ...props }) => {
+const NewsletterTemplate = ({ data, ...props }) => {
   const post = get(data, 'markdownRemark', null);
 
   const { frontmatter, html } = post;
   const {
+    author,
     category,
     description,
     image,
@@ -147,8 +170,8 @@ const MixtapeTemplate = ({ data, ...props }) => {
           />
         </MixtapeMeta>
         <MixtapeContent width={[1, 3 / 5]}>
-          <Marquee>{memoizedTitle}</Marquee>
-          <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
+          <StyledMarquee>{memoizedTitle}</StyledMarquee>
+          Posted by {author.name} (@{author.id})
           <Waveform
             duration={track?.duration}
             height={90}
@@ -173,21 +196,25 @@ const MixtapeTemplate = ({ data, ...props }) => {
               {msToTime(track?.duration)}
             </Text>
           </WaveformControls>
-          {/* {tracklistJson && !isSmallScreen && (
-            <Tracklist
-              isPlaying={isPlaying}
-              onSeek={onSeek}
-              progress={isListening ? progress : 0}
-              tracklist={tracklistJson}
-            />
-          )} */}
+          <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
+          {tracklistJson && !isSmallScreen && (
+            <>
+              <Heading as="h3">Tracklist</Heading>
+              <Tracklist
+                isPlaying={isPlaying}
+                onSeek={onSeek}
+                progress={isListening ? progress : 0}
+                tracklist={tracklistJson}
+              />
+            </>
+          )}
         </MixtapeContent>
       </MixtapeContainer>
     </Page>
   );
 };
 
-export default MixtapeTemplate;
+export default NewsletterTemplate;
 
 export const pageQuery = graphql`
   query($slug: String!) {
