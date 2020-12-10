@@ -1,15 +1,13 @@
 ---
-title: 'The Mood® (vol. 1): December 2020'
+title: 'The Mood® (vol. 1): The Mood Strikes Back'
 author: soulprovidr
-date: 2017-04-23
+date: 2020-12-09
 category: newsletter
-image: ./the-mood-vol-4.jpg
-description: 'When Soul Provider returned home from his recent trip to Mexico, he returned with more than just a slight tan and a penchant for mojitos.'
+image: ./the-mood-vol-7.jpg
+description: "If we haven't met before, allow me to introduce myself: my name is Soul Provider, and I'm healing the world through the power of funk, soul, and software."
 soundCloudUrl: https://soundcloud.com/soulprovidr/the-mood-vol-4-latino-heat
 tracklist: ./tracklist.json
 ---
-
-If we haven't met before, allow me to introduce myself: my name is Soul Provider, and I'm healing the world through the power of funk, soul, and software.
 
 I'm writing today to announce a major breakthrough in my patented mixtape technology, _The Mood®_. Previously shown to be up to 98% effective against common symptoms of heartache (including loneliness, anxiety, and depression)\*, _The Mood®_ is back, with a completely new format.
 

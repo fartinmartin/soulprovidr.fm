@@ -20,7 +20,7 @@ const links = [
   },
   {
     to: '/newsletters',
-    children: 'Newsletter',
+    children: 'The Mood®',
     partiallyActive: true
   },
   {

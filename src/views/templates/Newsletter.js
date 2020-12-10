@@ -16,7 +16,7 @@ import {
   Box,
   Breakpoints,
   Button,
-  Heading,
+  Logo,
   Spinner,
   Text,
   usePageWidth
@@ -35,27 +35,25 @@ const MixtapeContainer = styled('div')(
   })
 );
 
-const MixtapeMeta = styled('div')(
-  css({
-    // alignSelf: [null, 'flex-start'],
-    // mr: [0, 5],
-    position: ['relative'],
-    flexGrow: 1,
-    width: '60%'
-  })
-);
+const MixtapeTitle = styled.div`
+  ${css({ borderBottom: 'container', pt: 4, pb: 0, mb: '24px' })}
+`;
 
-const MixtapeContent = styled(Box)(
-  css({
+const MixtapeImage = styled.div`
+  position: relative;
+  flex-grow: 1;
+  width: 60%;
+`;
+
+const MixtapeContent = styled(Box)`
+  ${css({
     mb: 3,
-    // pl: [0, 5],
-    pt: [3, 0],
     pb: 5,
     width: ['100%', '60%']
-  })
-);
+  })}
+`;
 
-const MixtapeTitle = styled(Page.Title)(
+const StyledPageTitle = styled(Page.Title)(
   css({
     fontSize: [5, 6],
     lineHeight: 1.25,
@@ -63,9 +61,7 @@ const MixtapeTitle = styled(Page.Title)(
   })
 );
 
-const StyledMarquee = styled(Marquee)`
-  ${css({ pt: 4, pb: 2 })}
-`;
+const StyledMarquee = styled(Marquee)``;
 
 const MixtapeText = styled(Text)(
   css({
@@ -116,8 +112,8 @@ const NewsletterTemplate = ({ data, ...props }) => {
 
   const { frontmatter, html } = post;
   const {
-    author,
     category,
+    date,
     description,
     image,
     soundCloudUrl,
@@ -151,7 +147,7 @@ const NewsletterTemplate = ({ data, ...props }) => {
   const onSeek = (progress) => listenFunc(progress);
 
   const memoizedTitle = useMemo(
-    () => <MixtapeTitle key={title}>{title}</MixtapeTitle>,
+    () => <StyledPageTitle key={title}>{title}</StyledPageTitle>,
     []
   );
 
@@ -160,7 +156,7 @@ const NewsletterTemplate = ({ data, ...props }) => {
   return (
     <Page description={description} title={title} {...props}>
       <MixtapeContainer>
-        <MixtapeMeta>
+        <MixtapeImage>
           <CoverImage
             category={category}
             forceOverlay={isPlaying || isSmallScreen}
@@ -168,10 +164,19 @@ const NewsletterTemplate = ({ data, ...props }) => {
             image={image}
             mediaSrc={src}
           />
-        </MixtapeMeta>
+        </MixtapeImage>
         <MixtapeContent width={[1, 3 / 5]}>
-          <StyledMarquee>{memoizedTitle}</StyledMarquee>
-          Posted by {author.name} (@{author.id})
+          <MixtapeTitle>
+            <StyledMarquee>{memoizedTitle}</StyledMarquee>
+            <Text color="text.secondary" fontSize={3}>
+              <Logo />
+              Soul Provider · 4 hours ago
+            </Text>
+          </MixtapeTitle>
+          <Text fontSize={4} p={0}>
+            {description}
+          </Text>
+          <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
           <Waveform
             duration={track?.duration}
             height={90}
@@ -196,10 +201,9 @@ const NewsletterTemplate = ({ data, ...props }) => {
               {msToTime(track?.duration)}
             </Text>
           </WaveformControls>
-          <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
           {tracklistJson && !isSmallScreen && (
             <>
-              <Heading as="h3">Tracklist</Heading>
+              {/* <Heading as="h3">Tracklist</Heading> */}
               <Tracklist
                 isPlaying={isPlaying}
                 onSeek={onSeek}
@@ -226,10 +230,6 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
-        author {
-          id
-          name
-        }
         category {
           id
           label
